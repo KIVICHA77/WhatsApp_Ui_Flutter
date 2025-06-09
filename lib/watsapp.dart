@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watsappui/calls.dart';
+import 'package:watsappui/chatbot.dart';
 import 'package:watsappui/chats.dart';
 import 'package:watsappui/community.dart';
 import 'package:watsappui/updates.dart';
@@ -12,62 +13,82 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int index=0;
-    List< Widget> pages=[
-      Chats(),Updates(),Community(),Calls()
-    ]
-;  @override
+  int index = 0;
+  final List<Widget> pages = [
+    Chats(),
+    Updates(),
+    Community(),
+    Calls(),
+  ];
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(221, 20, 20, 20),
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        title: const Text(
-          "WhatsApp",
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        title: Row(
+          children: [
+            const Text(
+              "WhatsApp",
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            
+          ],
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Icon(Icons.qr_code_scanner_outlined),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Icon(Icons.camera_alt_outlined),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Icon(Icons.more_vert_outlined),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.chat),
+        onPressed: () {
+          Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Bot()),
+          );
+        },
+        child: const Icon(Icons.chat),
         backgroundColor: Colors.green,
         foregroundColor: Colors.black,
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.green,
+        unselectedItemColor: Colors.green[200],
         currentIndex: index,
-        onTap: (tappedindex){
+        onTap: (tappedindex) {
           setState(() {
-            index=tappedindex;
+            index = tappedindex;
           });
         },
-        items: [
-          BottomNavigationBarItem(backgroundColor: Colors.black,icon: Icon(Icons.chat), label: "chats"),
+        items: const [
+          BottomNavigationBarItem(
+            backgroundColor: Colors.black,
+            icon: Icon(Icons.chat),
+            label: "Chats",
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.update_rounded),
-            label: "updates",
+            label: "Updates",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people_alt),
-            label: "community",
+            label: "Community",
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.call), label: "calls"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.call),
+            label: "Calls",
+          ),
         ],
       ),
       body: pages[index],
